@@ -35,19 +35,33 @@ public class StopwatchActivity extends AppCompatActivity {
         savedInstanceState.putBoolean("wasRunning", wasRunning);
     }
 
-    @Override
+   /* @Override
     protected void onStop() {
         super.onStop();
         wasRunning = running;
         running = false;
-    }
+    }*/
 
-    @Override
+    /*@Override
     protected void onStart() {
         super.onStart();
         if (wasRunning) {
             running = true;
         }
+    }
+*/
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(wasRunning){
+            running = true;
+        }
+    }
+    @Override
+    protected void onPause(){
+        super.onPause();
+        wasRunning = running;
+        running = false;
     }
 
     //start the stop watch on clicking the start button
@@ -77,8 +91,7 @@ public class StopwatchActivity extends AppCompatActivity {
                 int hours = seconds / 3600;
                 int minutes = (seconds % 3600) / 60;
                 int secs = seconds % 60;
-                String time = String.format(Locale.getDefault(),
-                        "%d:%02d:%02d", hours, minutes, secs);
+                String time = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, secs);
                 timeView.setText(time);
                 if (running) {
                     seconds++;
